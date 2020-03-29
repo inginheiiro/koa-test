@@ -6,10 +6,11 @@ require('dotenv').config({path: __dirname + '/.env'});
 
 const app = new Koa();
 
+
 // log all events to the terminal
 app.use(logger());
 
-// error handling
+// Error handling middleware
 app.use(async (ctx, next) => {
     try {
         await next();

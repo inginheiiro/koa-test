@@ -13,7 +13,6 @@
     "koa-router": "^8.0.8",
     "nodemon": "^2.0.2",
     "pg": "^7.18.2",
-    "randomstring": "^1.1.5",
     "superagent": "^5.2.2"
   },
   "devDependencies": {
