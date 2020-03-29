@@ -16,7 +16,6 @@ function getYellowDataDifferentVendors() {
     return knex.select(knex.raw('distinct ("vendorid")')).from('yellow')
 }
 
-
 module.exports = {
     getAllYellowData,
     getYellowDataDifferentPaymentTypes,

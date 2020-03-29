@@ -1,4 +1,3 @@
-const request = require('superagent');
 const q = require("../db/queries/q");
 
 module.exports = ({apiRouter}) => {
