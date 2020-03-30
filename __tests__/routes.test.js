@@ -1,15 +1,18 @@
 const request = require('supertest');
 const server = require('../app.js');
 
+// Before everything
 beforeAll(async () => {
   console.log('Jest starting!');
 });
 
+// After everything
 afterAll(() => {
   server.close();
   console.log('Jest out!');
 });
 
+// Hello world basic test
 describe('basic route tests', () => {
   test('get home route  GET /', async () => {
     const response = await request(server).get('/');
@@ -18,6 +21,7 @@ describe('basic route tests', () => {
   });
 });
 
+// Get all method ... Page 5
 describe('Get page 5 from ALL', () => {
   test(`get ${process.env.BASE_URL}/all/5`, async () => {
     const response = await request(server).get(`${process.env.BASE_URL}/all/5`);
@@ -27,6 +31,7 @@ describe('Get page 5 from ALL', () => {
   });
 });
 
+// Get distinct payment types
 describe('Get distinct payment types', () => {
   test(`get ${process.env.BASE_URL}/payment_types/distinct`, async () => {
     const response = await request(server).get(`${process.env.BASE_URL}/payment_types/distinct`);
