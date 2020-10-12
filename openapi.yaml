@@ -1,0 +1,47 @@
+openapi: 3.0.2
+info:
+  version: "1.0"
+  title: "OpenApi Course"
+  description: Specification for Open Api Crash Course
+  contact:
+    name: inginheiiro
+    email: paulo.cabral@gmail.com
+servers:
+  - url: http://localhost:3000
+    description: Development Server
+paths:
+  /:
+    get:
+      responses:
+        "200":
+          description: Returns if server is running
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/v1/db/payment_types/distinct:
+    get:
+      responses:
+        "200":
+          description: List distinct payments types
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DistinctPayments"
+
+components:
+  schemas:
+    DistinctPayments:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+        json:
+          type: array
+          items:
+            type: object
+            properties:
+              payment_type:
+                type: integer
+                example: 1
