@@ -12,6 +12,10 @@ servers:
 paths:
   /:
     get:
+      summary: Hello World
+      description: Just a message to inform that the server is running
+      tags:
+        - "Main"
       responses:
         "200":
           description: Returns if server is running
@@ -21,6 +25,10 @@ paths:
                 type: string
   /api/v1/db/payment_types/distinct:
     get:
+      summary: List Distinct Payments
+      description: List all the **different** distinct payments that the system has.
+      tags:
+        - "Payments"
       responses:
         "200":
           description: List distinct payments types
@@ -28,15 +36,42 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/DistinctPayments"
+  /api/v1/db/all/{page}:
+    parameters:
+      - name: page
+        in: path
+        description: page number
+        required: true
+        schema:
+          type: integer
+          format: int32
+          default: 1
+    get:
+      summary: List All data
+      description: List all **data** with pagination.
+      tags:
+        - "Payments"
+      responses:
+        "200":
+          description: List All data paged
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AllData"
 
 components:
   schemas:
+    # Status
+    Status:
+      type: string
+      description: Result status
+      example: success
+    #Distinct Payments Result
     DistinctPayments:
       type: object
       properties:
         status:
-          type: string
-          example: success
+          $ref: "#/components/schemas/Status"
         json:
           type: array
           items:
@@ -45,3 +80,55 @@ components:
               payment_type:
                 type: integer
                 example: 1
+    AllData:
+      type: object
+      properties:
+        status:
+          $ref: "#/components/schemas/Status"
+        json:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                type: object
+                properties:
+                  vendorid:
+                    type: integer
+                    format: int32
+                    example: 1
+                  tpep_pickup_datetime:
+                    type: string
+                    format: date-time
+                    example: 2019-01-01T00:46:40.000Z
+                  tpep_dropoff_datetime:
+                    type: string
+                    format: date-time
+                    example: 2019-01-01T00:46:40.000Z
+        pagination:
+          type: object
+          properties:
+            total:
+              type: integer
+              format: int64
+              example: 19887
+            lastPage:
+              type: integer
+              format: int64
+              example: 30000
+            perPage:
+              type: integer
+              format: int64
+              example: 100
+            currentPage:
+              type: integer
+              format: int32
+              example: 1
+            from:
+              type: integer
+              format: int32
+              example: 0
+            to:
+              type: integer
+              format: int32
+              example: 100
